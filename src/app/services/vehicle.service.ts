@@ -10,6 +10,6 @@ export class VehicleService {
   }
   public sidenav: MatSidenav;
   getAllVehicles(): Observable<any> {
-    return this.http.get('api/wp-json/wp/v2/vehicles');
+    return this.http.get('api/wp-json/wp/v2/userVehicles');
 }
 }

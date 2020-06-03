@@ -78,7 +78,7 @@ export class VehicleListComponent implements OnInit, OnDestroy {
           item.titleRendered = item.title.rendered;
           item.status = item.title.rendered;
           item.auction = item.title.rendered;
-        return item;
+          return item;
       });
       console.log(filteredResult,'filteredResult')
       this.dataSource = new MatTableDataSource(filteredResult);

@@ -1,0 +1,11 @@
+<h1 mat-dialog-title>Please Login</h1>
+<div mat-dialog-content>
+    <app-general-form #form [data] = "data.form | async"></app-general-form>
+</div>
+<div mat-dialog-actions>
+    <button cdkFocusInitial mat-button (click)="onNoClick()">Cancel</button>
+    <button [disabled]="form.form.invalid || data.isLoading" mat-button [mat-dialog-close]="form" [ngSwitch]="data.isLoading" >
+        <span *ngSwitchCase="false">Ok</span>
+        <mat-spinner [diameter]="30" *ngSwitchCase="true"></mat-spinner>
+    </button>
+  </div>

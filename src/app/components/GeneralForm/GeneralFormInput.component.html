@@ -1,0 +1,63 @@
+<div id="GeneralFormInput" [formGroup]="form">
+    <mat-form-field *ngIf="item.controlType === 'textbox'">
+      <mat-label>{{item.label}}<span class='required-sign' *ngIf="item.required">*</span></mat-label>
+      <input matTooltip="{{item.tooltip}}" matInput [readonly]="item.disabled"  [formControlName]="item.key" [id]="item.key" [type]="item.type">
+    </mat-form-field>
+    <mat-form-field *ngIf="item.controlType === 'autocomplete'">
+      <mat-label>{{item.label}}<span class='required-sign' *ngIf="item.required">*</span></mat-label>
+      <input type="text"
+             matInput
+             [formControlName]="item.key"
+             [matAutocomplete]="auto">
+      <mat-autocomplete #auto="matAutocomplete">
+        <mat-option *ngFor="let opt of form.controls[item.key]['options']" [value]="opt.key">
+          {{opt.value}}
+        </mat-option>
+      </mat-autocomplete>
+    </mat-form-field>
+    <mat-form-field *ngIf="item.controlType === 'dropdown'">
+      <mat-label>{{item.label}}<span class='required-sign' *ngIf="item.required">*</span></mat-label>
+      <mat-select matTooltip="{{item.tooltip}}" (selectionChange)="onChange($event)" [id]="item.key" [value]="item.value" [formControlName]="item.key">
+        <mat-option *ngFor="let opt of form.controls[item.key]['options']" [value]="opt.key">{{opt.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <mat-slide-toggle *ngIf="item.controlType === 'switch'" matInput matTooltip="{{item.tooltip}}" [formControlName]="item.key" [id]="item.key" [type]="item.type" >{{item.label}}</mat-slide-toggle>
+    <mat-form-field *ngIf="item.controlType === 'textbox-with-generator'">
+      <mat-label>{{item.label}}<span class='required-sign' *ngIf="item.required">*</span></mat-label>
+      <input (click)="onClickField()" matInput [readonly]="item.disabled"  [formControlName]="item.key" [id]="item.key" [type]="item.type">
+    </mat-form-field>
+    <div *ngIf="item.controlType === 'button'">
+      <button cdkFocusInitial mat-button (click)="onButtonClick()">{{item.label}}</button>
+    </div>
+    <div *ngIf="item.controlType === 'header'">
+      <h2>{{item.label}}</h2>
+    </div>
+    <mat-form-field *ngIf="item.controlType === 'dropdown-multiple-select'">
+      <mat-label>{{item.label}}<span class='required-sign' *ngIf="item.required">*</span></mat-label>
+      <mat-select matTooltip="{{item.tooltip}}" multiple (selectionChange)="onChange($event)" [id]="item.key" [value]="item.value" [formControlName]="item.key">
+        <mat-option *ngFor="let opt of form.controls[item.key]['options']" [value]="opt.key">{{opt.value}}</mat-option>
+      </mat-select>
+    </mat-form-field>
+    <div *ngIf="item.controlType === 'multi-rows'" class='multi-rows-container'>
+      <h2>{{item.label}}</h2>
+      <table (cdkDropListDropped)="drop(item.key,$event)" class='drop-zone'  cdkDropList>
+        <tr cdkDrag formArrayName="{{item.key}}" class='single-row' matTooltip="{{i === 0 ? 'Primary Stream' : ''}}"  *ngFor="let control of form.controls[item.key]['controls']; let i = index;">
+            <td class='multi-rows-drag'><mat-icon>drag_indicator</mat-icon></td>
+            <td class='multi-rows-input'>
+              <mat-form-field >
+                  <input matInput  [formControl]="form.controls[item.key]['controls'][i]" placeholder="{{item.rowPlaceholder}}">
+              </mat-form-field>
+            </td>
+            <td class='multi-rows-actions'>
+              <div >
+                  <button matTooltip="Remove Stream" mat-button (click) ="removeMultiRow(item.key, i)"><mat-icon>delete</mat-icon></button>
+                  <button matTooltip="Edit Stream"(click)="onClickAstra(form.controls[item.key]['controls'][i])" mat-button><mat-icon>create</mat-icon></button>
+                  <button matTooltip="View Stream"(click)="item.actionButtonClick(form.controls[item.key]['controls'][i].value)" [disabled]="!form.controls[item.key]['controls'][i].value" mat-button><mat-icon>remove_red_eye</mat-icon></button>
+              </div>
+            </td>
+          </tr>
+      </table>
+      <button (click)="addMultiRow(item.key)" class="add-row-button" [disabled]="form.controls[item.key]['controls'].length === item.maxRows" mat-button>Add Stream</button>
+    </div>
+    <!-- <div class="errorMessage" *ngIf="!isValid">{{item.label}} is required</div> -->
+  </div>

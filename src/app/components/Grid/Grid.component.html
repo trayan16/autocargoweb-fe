@@ -1,0 +1,87 @@
+<div id="GridComponent">
+
+  <div class='extended-table'>
+    <div class='grid-header border-grey-light'>
+      <div class="page-title"><!---->
+        <div *ngIf="showSearch">
+          <mat-form-field>
+            <input matInput type="text" (keyup)="doFilter($event.target.value)" placeholder="Search...">
+          </mat-form-field>
+        </div>
+          <div class="title text-white bolded ng-star-inserted">{{title}}</div>
+        <div *ngIf="gridActions.length" class='grid-actions'>
+          <button (click)="action.action()" matTooltip="{{action.tooltip}}" *ngFor="let action of gridActions; let i = index" [ngClass]="action.className" mat-button>
+            <mat-icon>{{action.icon}}</mat-icon>
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class='loader' *ngIf="isLoading"><mat-spinner></mat-spinner></div>
+    <mat-table [hidden]="!dataSource.filteredData.length || isLoading" [dataSource]="dataSource" multiTemplateDataRows matSort>
+      <ng-container *ngFor="let def of tableDef; let i = index" [matColumnDef]="def.key">
+        <div *ngIf="def.key !== 'select' && def.key !== 'actions'">
+            <mat-header-cell *matHeaderCellDef mat-sort-header> {{def.header}} </mat-header-cell>
+            <mat-cell style='text-align:center;' mat-cell *matCellDef="let element"> 
+            <mat-icon *ngIf="i === 0 && element.detailedActions">{{expandedElement === element ? 'keyboard_arrow_up' : 'keyboard_arrow_right'}}</mat-icon> 
+            <div (click)="$event.stopPropagation()" [ngSwitch]="def.type"  class='wrap-ellipsis'>
+              <div *ngSwitchCase="'image'"><img [src]="element[def.key]"></div> 
+              <div *ngSwitchCase="'callToAction'" ><mat-slide-toggle [checked]="element[def.key]" (change)="def.onChange(element,$event)" matInput ></mat-slide-toggle></div> 
+              <div *ngSwitchDefault >{{ element[def.key]}}</div>
+             </div> 
+            </mat-cell>
+        </div>
+        <div *ngIf="def.key === 'select'">
+          <mat-header-cell mat-header-cell *matHeaderCellDef>
+            <mat-checkbox (change)="$event ? masterToggle() : null"
+                          [checked]="selection.hasValue() && isAllSelected()"
+                          [indeterminate]="selection.hasValue() && !isAllSelected()"
+                          [aria-label]="checkboxLabel()">
+            </mat-checkbox>
+          </mat-header-cell>
+          <mat-cell mat-cell *matCellDef="let row">
+            <mat-checkbox (click)="$event.stopPropagation()"
+                          (change)="$event ? selectRow(row) : null"
+                          [checked]="selection.isSelected(row)"
+                          [aria-label]="checkboxLabel(row)">
+            </mat-checkbox>
+          </mat-cell>
+        </div>
+        <div class='row-actions' *ngIf="def.key === 'actions' && rowActions.length">
+            <mat-header-cell  *matHeaderCellDef> {{def.header}} </mat-header-cell>
+            <mat-cell (click)="$event.stopPropagation()" *matCellDef="let element"> 
+                  <button matTooltip={{rowAction.label}} [ngClass]="rowAction.className" *ngFor="let rowAction of rowActions; let i = index" mat-menu-item (click)="rowAction.action(element)" ><mat-icon>{{rowAction.icon}}</mat-icon></button>            
+            </mat-cell>
+          </div>
+      </ng-container>
+      <ng-container matColumnDef="expandedDetail">
+        <mat-cell mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">
+          <div class="example-element-detail"
+              [@detailExpand]="element == expandedElement ? 'expanded' : 'collapsed'">
+              <div class='channel-input-step' (click)="detailAction.action(element)" *ngFor="let detailAction of element.detailedActions; let i = index"><mat-icon>{{detailAction.icon ? detailAction.icon : 'arrow_right'}}</mat-icon><span [innerHtml]="detailAction.title"></span></div>
+          </div>
+        </mat-cell>
+      </ng-container>
+      
+      <mat-header-row mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row mat-row  *matRowDef="let row; columns: displayedColumns;"
+          [class.example-expanded-row]="expandedElement === row"
+          (click)="row.detailedActions && expandedElement = expandedElement === row ? null : row"
+          (dblclick)="dblClickRow(row)">
+      </mat-row>
+      <mat-row *matRowDef="let row; columns: ['expandedDetail']" [class.example-expanded-row]="expandedElement === row" class="example-detail-row"></mat-row>
+    </mat-table>
+    <mat-paginator *ngIf="showPagination" [hidden]="!dataSource.filteredData.length || isLoading" [pageSize]="[10]"></mat-paginator>
+    <div class='blank-slate' *ngIf="!dataSource.filteredData.length && !isLoading">
+      
+      <!-- <div class='blank-slate-logo'></div> -->
+      <div *ngIf="notFoundIcon"><mat-icon>{{notFoundIcon}}</mat-icon></div>
+      <div class='blank-slate-message'>{{notFoundText}}</div>
+
+    </div>
+    <div *ngIf="selection.selected.length > 1" class='selection-counter border-grey-light'>
+      <div><b>{{selection.selected.length}} Items </b> selected </div>
+      <div *ngIf="!isAllSelected();" class='master-toggle text-positive-green title-normal' (click)="masterToggle()">Select All</div>
+      <div *ngIf="isAllSelected();"  class='master-toggle title-normal' (click)="masterToggle()">Unselect all</div>
+    </div>
+  </div>
+</div>

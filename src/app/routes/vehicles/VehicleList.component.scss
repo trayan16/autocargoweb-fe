@@ -1,0 +1,20 @@
+:host {
+    width:100%;
+}
+#VehicleListComponent ::ng-deep {
+    mat-table {
+        height: calc(100vh - 215px);      
+        .mat-column-select {
+            flex: 0 0 5%;
+            width: 5% ;
+        }
+        .mat-column-posterUrl {
+            flex: 0 0 10%;
+        }
+        .mat-column-enabledForRecording {
+            flex: 0 0 20%;
+            justify-content: center;
+        }
+    }
+    
+}

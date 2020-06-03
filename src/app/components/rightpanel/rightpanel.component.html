@@ -1,0 +1,16 @@
+
+  <div (click)="sidebarService.closeRightPanel()" class='rightpanel-backdrop '></div>
+  <div id="rightPanelComponent">
+  <div class='rightpanel-content'>
+    <div class='rightpanel-header'>
+      <div (click)="sidebarService.closeRightPanel()" class='close-button'><mat-icon>close</mat-icon></div>
+      <div class='title text-grey-dark'>
+        <h2> {{title}} </h2>
+        <p class='description'>{{description}}</p>
+      </div>
+    </div>
+    <div class='rightpanel-main'>
+      <ng-content></ng-content>
+    </div>  
+  </div>
+</div>

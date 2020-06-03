@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-
-
-const routes: Routes = [];
+import { VehicleListComponent } from './routes/vehicles/VehicleList.component';
+import { AuthGuard } from './common/auth.guard';
+const routes: Routes = [
+  { path: '', component: VehicleListComponent , canActivate: [AuthGuard] },
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

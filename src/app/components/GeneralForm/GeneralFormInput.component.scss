@@ -1,0 +1,90 @@
+#GeneralFormInput {
+  table {
+    width:100%;
+    border-collapse: collapse;
+    tr {
+      cursor: move;
+    }
+  }
+  .multi-rows-container {
+      
+      max-width: 100%;
+      min-height: 60px;
+      display: block;
+      padding-top: 10px;
+      overflow: hidden;
+      margin-bottom: 10px;
+      table tr:first-child .multi-rows-drag{
+        color:#303f9f;
+      }
+      .add-row-button { 
+          font-size: 14px;
+          font-weight: 700;
+          background: none;
+          font-family: "Open Sans", sans-serif;
+          text-transform: uppercase;
+          min-width:80px;
+          float: right;
+          min-width: 120px;
+          margin-right: 18px;
+      }
+      .multi-rows-actions {
+        width: 15%;
+      }
+      .multi-rows-drag {
+        width:5%;
+      }
+      .multi-rows-input {
+        width: 80%;
+      }
+      .multi-rows-actions {
+          display:inline;
+          div {
+            position: relative;
+            top:5px;
+          }
+      }
+      .cdk-drop-list-dragging .single-row:not(.cdk-drag-placeholder) {
+        transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+      }
+      button {
+          background: #f5f5f5;
+          width: 34px;
+          height: 35px;
+          padding: 0;
+          min-width: 10px;
+          margin-left: 5px;
+          mat-icon { 
+              vertical-align: middle;
+          }
+      }
+  }
+
+
+  .cdk-drag-preview {
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 5px 5px -3px rgba(0, 0, 0, 0.2),
+                0 8px 10px 1px rgba(0, 0, 0, 0.14),
+                0 3px 14px 2px rgba(0, 0, 0, 0.12);
+  }
+  
+  .cdk-drag-animating {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .single-row:last-child {
+    border: none;
+  }
+  
+  .drop-zone.cdk-drop-list-dragging .single-row:not(.cdk-drag-placeholder) {
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+  
+  .example-custom-placeholder {
+    background: #ccc;
+    border: dotted 3px #999;
+    min-height: 60px;
+    transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+  }
+}

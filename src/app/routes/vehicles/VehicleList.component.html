@@ -1,0 +1,17 @@
+<div id="VehicleListComponent">
+    <app-grid 
+        [tableDef] = "tableDef"
+        [title] = "title"
+        [notFoundIcon]="notFoundIcon"
+        [gridActions] = "gridActions"
+        [selectRowOnClick]="true"   
+        [dataSource]="dataSource" 
+        [rowActions]="rowActions"
+        [isLoading] = "isLoading"  
+        [displayedColumns] = "displayedColumns"
+    >
+    </app-grid>
+</div>
+<!-- <right-panel [title]="rightPanelTitle" [description]="rightPanelDescription" [ngClass]="{'hide': !sidebarService.rightPanelOpened}" id="rightPanel" #rightPanel>
+    <ng-template #rightPanelContainer></ng-template>
+</right-panel> -->

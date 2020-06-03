@@ -1,0 +1,9 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div [innerHtml]="data.message" mat-dialog-content>
+  
+</div>
+<mat-slide-toggle *ngIf="data.showCheckbox" [color]="'accent'" [(ngModel)]="data.checked">Delete Entire channel! </mat-slide-toggle>
+<div *ngIf="!data.hideActions" mat-dialog-actions>
+    <button class='positive' cdkFocusInitial mat-button (click)="onNoClick()">Cancel</button>
+    <button class='negative' mat-button [mat-dialog-close]="data" >Ok</button>
+  </div>

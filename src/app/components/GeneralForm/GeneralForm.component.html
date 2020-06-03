@@ -1,0 +1,11 @@
+<div id="GeneralFormComponent">
+    <form class='parent-flex' [formGroup]="form">
+      <div *ngFor="let item of data" class="{{item.controlType}} {{item.class}} form-row child">
+        <app-input [item]="item" [form]="form"></app-input>
+      </div>
+    </form>
+    <div class='actions' *ngIf="showActions">
+      <button mat-button (click)="sidebarService.closeRightPanel()">Cancel</button>
+      <button mat-button [disabled]="form.invalid" (click)="emitFormSubmit()">Save and Edit</button>
+  </div>
+</div>

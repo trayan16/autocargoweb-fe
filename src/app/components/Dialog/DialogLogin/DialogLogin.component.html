@@ -1,0 +1,10 @@
+<h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+    <app-general-form #form [data] = "data.form | async"></app-general-form>
+</div>
+<div mat-dialog-actions>
+    <button cdkFocusInitial mat-button (click)="onNoClick()">Cancel</button>
+    <button (click)="onSubmit()" mat-button>
+        <span>Ok</span>
+    </button>
+  </div>

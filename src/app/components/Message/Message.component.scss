@@ -1,0 +1,25 @@
+#MessageComponent {
+    position: fixed;
+    z-index: 999;
+    left: 50%;
+    .message-content {
+        position: fixed;
+        bottom: 0;
+        left: 50%;
+        -webkit-transform: translate(-50%, 0);
+        transform: translate(-50%, 0);
+        background: #5ebe5e;
+        text-align: center;
+        min-height: 40px;
+        display: table;
+        padding-left: 10px;
+        color: #fff;
+        padding-right: 10px;
+        font-weight: 600;
+        p {
+            display: table-cell; 
+            vertical-align: middle; 
+            text-align: center;
+        }
+    }
+}

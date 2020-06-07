@@ -46,12 +46,15 @@
             </mat-checkbox>
           </mat-cell>
         </div>
-        <div class='row-actions' *ngIf="def.key === 'actions' && rowActions.length">
-            <mat-header-cell  *matHeaderCellDef> {{def.header}} </mat-header-cell>
-            <mat-cell (click)="$event.stopPropagation()" *matCellDef="let element"> 
-                  <button matTooltip={{rowAction.label}} [ngClass]="rowAction.className" *ngFor="let rowAction of rowActions; let i = index" mat-menu-item (click)="rowAction.action(element)" ><mat-icon>{{rowAction.icon}}</mat-icon></button>            
-            </mat-cell>
-          </div>
+        <div class='row-actions' *ngIf="def.key === 'actions'">
+          <mat-header-cell  *matHeaderCellDef> {{def.header}} </mat-header-cell>
+          <mat-cell (click)="$event.stopPropagation()" *matCellDef="let element"> 
+                <div *ngFor="let rowAction of element.rowActions; let i = index" >
+                  <button *ngIf="!rowAction.items"  matTooltip={{rowAction.label}} [ngClass]="rowAction.className" mat-icon-button (click)="rowAction.action(element)" ><mat-icon>{{rowAction.icon}}</mat-icon></button>
+                </div>
+                
+          </mat-cell>
+        </div>
       </ng-container>
       <ng-container matColumnDef="expandedDetail">
         <mat-cell mat-cell *matCellDef="let element" [attr.colspan]="displayedColumns.length">

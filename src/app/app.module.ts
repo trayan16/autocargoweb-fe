@@ -46,6 +46,7 @@ import { MatTooltipModule } from '@angular/material/tooltip';
 import { JwtInterceptor } from './common/jwt.interceptor';
 import { ErrorInterceptor } from './common/error.interceptor';
 import { VehicleListComponent } from './routes/vehicles/VehicleList.component';
+import { VehicleInfoComponent } from './routes/vehicles/vehicle-info.component';
 @NgModule({
   declarations: [
     AppComponent,
@@ -57,6 +58,7 @@ import { VehicleListComponent } from './routes/vehicles/VehicleList.component';
     GeneralFormInputComponent,
     DialogConfirmComponent,
     DialogFormComponent,
+    VehicleInfoComponent,
     DialogLoginComponent,
     VehicleListComponent
   ],

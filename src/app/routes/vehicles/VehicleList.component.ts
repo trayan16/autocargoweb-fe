@@ -7,6 +7,8 @@ import { DialogService } from '../../services/dialog.service';
 import { HelperService } from '../../services/helper.service';
 import { VehicleService } from '../../services/vehicle.service';
 import { MatTableDataSource } from '@angular/material/table';
+import { DialogLoginComponent } from 'src/app/components/Dialog/DialogLogin/DialogLogin.component';
+import { VehicleInfoComponent } from './vehicle-info.component';
 export interface IActionItem {
   label: string;
   action: any;
@@ -14,12 +16,12 @@ export interface IActionItem {
   className?: string;
 }
 @Component({
-    templateUrl: './VehicleList.component.html', 
+    templateUrl: './VehicleList.component.html',
     styleUrls: ['./VehicleList.component.scss'],
   })
 export class VehicleListComponent implements OnInit, OnDestroy {
   title = 'My Vehicles';
-  displayedColumns: string[] = ['titleRendered', 'status', 'auction', 'actions'];
+  displayedColumns: string[] = ['post_title', 'vin' , 'shipped_date', 'delivery_date', 'actions'];
   notFoundIcon = 'direction_car';
   gridActions = [];
 
@@ -39,16 +41,20 @@ export class VehicleListComponent implements OnInit, OnDestroy {
   ];
   tableDef: Array<any> = [
     {
-      key: 'titleRendered',
+      key: 'post_title',
       header: 'Title',
     },
     {
-      key: 'status',
-      header: 'Status',
+      key: 'vin',
+      header: 'VIN',
     },
     {
-      key: 'auction',
-      header: 'Auction',
+      key: 'shipped_date',
+      header: 'Shipped Date',
+    },
+    {
+      key: 'delivery_date',
+      header: 'Delivery Date',
     },
     {
       key: 'actions',
@@ -70,17 +76,38 @@ export class VehicleListComponent implements OnInit, OnDestroy {
   }
   ngOnInit() {
     this.loadVehicles();
-    console.log("HERE INIT VEHICLES")
+    console.log('HERE INIT VEHICLES');
+  }
+  getRowActions = (row) => {
+    const rowActions: IActionItem[] = [
+      {
+        label : 'View',
+        action: row => {
+          this.viewVehicle(row);
+        },
+        icon : 'remove_red_eye',
+      },
+    ];
+    return rowActions;
+  }
+  viewVehicle = row => {
+    console.log(row,"ROW")
+    const dialogRef = this.dialogService.open(VehicleInfoComponent, {
+      data: {
+          carInfo : row,
+      },
+  }, {});
   }
   loadVehicles = () => {
     this.vehicleService.getAllVehicles().subscribe(res => {
       const filteredResult = res.map(item => {
-          item.titleRendered = item.title.rendered;
-          item.status = item.title.rendered;
-          item.auction = item.title.rendered;
-          return item;
+           item.vin = item.vin.toUpperCase();
+          // item.placeOfDelivery = item.place_of_delivery;
+          // item.terminal = item.terminal;
+          // item.shippedDate = item.shipped_date
+           item.rowActions = this.getRowActions(item);
+           return item;
       });
-      console.log(filteredResult,'filteredResult')
       this.dataSource = new MatTableDataSource(filteredResult);
       this.isLoading = false;
     }, error => {

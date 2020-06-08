@@ -24,13 +24,13 @@ export class AuthenticationService {
         return this.currentUserSubject.value;
     }
     login(username, password) {
-        return this.http.post<any>(`api/wp-json/jwt-auth/v1/token`, { username, password });
-            // .pipe(map(user => {
-            //     // store user details and jwt token in local storage to keep user logged in between page refreshes
-            //     localStorage.setItem('currentUser', JSON.stringify(user));
-            //     this.currentUserSubject.next(user);
-            //     return user;
-            // }));
+        return this.http.post<any>(`api/wp-json/jwt-auth/v1/token`, { username, password })
+            .pipe(map(user => {
+                // store user details and jwt token in local storage to keep user logged in between page refreshes
+                localStorage.setItem('currentUser', JSON.stringify(user));
+                this.currentUserSubject.next(user);
+                return user;
+            }));
     }
     getLoginForm = () => {
         const formControls: FormInputBase<string>[] = [

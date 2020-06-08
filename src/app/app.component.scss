@@ -79,7 +79,7 @@
 ::ng-deep {
     .mat-tooltip {
         color: white !important;
-        background: linear-gradient(90deg, rgba(233,213,19,0.9444152661064426) 8%, rgba(255,85,0,1) 100%);
+        background: linear-gradient(40deg,#45cafc,#303f9f) !important;
     }
     .mat-tab-body-wrapper {
         height: calc(100vh - 175px);
@@ -99,6 +99,28 @@
     }
     .mat-tooltip {
         font-size:14px !important;
+    }
+    .page-title {
+        height: 50px;
+        box-sizing: border-box;
+        padding: 28px 8px;
+        display: flex;
+        width: 100%;
+        margin-top: 1.25rem;
+        border-radius: .25rem;
+        -webkit-box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+        box-shadow: 0 5px 11px 0 rgba(0,0,0,0.18), 0 4px 15px 0 rgba(0,0,0,0.15);
+        background: #45cafc;
+        background: linear-gradient(90deg,#45cafc,#303f9f) !important;
+        align-items: center;
+        justify-content: space-between;
+        .mat-form-field {
+            display: contents;
+        }
+        >div {
+          flex-basis: 33%;  
+          text-align: center;
+        }
     }
     .mat-dialog-content {
         #GeneralFormComponent {
@@ -246,8 +268,8 @@
         border-color: #e4e6e5;
     }
     .bg-main {
-        background: rgb(233,213,19);
-        background: linear-gradient(90deg, rgba(233,213,19,0.9444152661064426) 8%, rgba(255,85,0,1) 100%);
+        background: #45cafc;
+        background: linear-gradient(90deg,#45cafc,#303f9f) !important;
     }
     .text-positive-green {
         color: #5ebe5e!important;
@@ -257,8 +279,8 @@
         font-weight: 600;
     }
     html .bg-main {
-        background: rgb(233,213,19);
-        background: linear-gradient(90deg, rgba(233,213,19,0.9444152661064426) 8%, rgba(255,85,0,1) 100%);
+        background: #45cafc;
+        background: linear-gradient(90deg,#45cafc,#303f9f) !important;
     }
     .text-basic-size {
         font-size: 14px;

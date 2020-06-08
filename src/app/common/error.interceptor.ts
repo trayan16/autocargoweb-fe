@@ -4,10 +4,11 @@ import { Observable, throwError } from 'rxjs';
 import { catchError } from 'rxjs/operators';
 
 import { AuthenticationService } from '../services/authentication.service';
+import { MessageService } from '../services/message.service';
 
 @Injectable()
 export class ErrorInterceptor implements HttpInterceptor {
-    constructor(private authenticationService: AuthenticationService) {}
+    constructor(private authenticationService: AuthenticationService, private messageService: MessageService) {}
 
     intercept(request: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
         return next.handle(request).pipe(catchError(err => {
@@ -16,8 +17,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.authenticationService.logout();
                 location.reload(true);
             }
-            
+            if (err.status === 403) {
+                this.messageService.sendMessage('Wrong credentials provided!', 3500, 'error-snackbar');
+            }
             const error = err.error.message || err.statusText;
+            
             return throwError(error);
         }))
     }

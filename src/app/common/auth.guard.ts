@@ -17,20 +17,21 @@ export class AuthGuard implements CanActivate {
 
         const currentUser = this.authenticationService.currentUserValue;
         console.log(currentUser,"HERE CONSTRUCT")
-        return true; // fix this when we have authentication
+        //return true; // fix this when we have authentication
         if (currentUser) {
             // authorised so return true
             return true;
         }
-        //this.loginDialog();
+        this.loginDialog(state.url);
         return false;
     }
-    loginDialog = () => {
+    loginDialog = (stateUrl) => {
         const dialogRef = this.dialogService.open(DialogLoginComponent, {
             data: {
                 form: this.authenticationService.getLoginForm(),
                 hideActions: true,
                 title: 'Please Login',
+                returnUrl: stateUrl
             },
             disableClose : true,
         }, {});

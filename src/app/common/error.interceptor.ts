@@ -17,6 +17,11 @@ export class ErrorInterceptor implements HttpInterceptor {
                 this.authenticationService.logout();
                 location.reload(true);
             }
+            if (err.status === 401) {
+                // auto logout if 401 response returned from api
+                this.authenticationService.logout();
+                location.reload(true);
+            }
             if (err.status === 403) {
                 this.messageService.sendMessage('Wrong credentials provided!', 3500, 'error-snackbar');
             }

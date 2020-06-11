@@ -47,6 +47,7 @@ import { JwtInterceptor } from './common/jwt.interceptor';
 import { ErrorInterceptor } from './common/error.interceptor';
 import { VehicleListComponent } from './routes/vehicles/VehicleList.component';
 import { VehicleInfoComponent } from './routes/vehicles/vehicle-info.component';
+import { InterceptorsService } from './common/http.interceptor';
 @NgModule({
   declarations: [
     AppComponent,
@@ -104,6 +105,7 @@ import { VehicleInfoComponent } from './routes/vehicles/vehicle-info.component';
     HelperService,
     { provide: HTTP_INTERCEPTORS, useClass: JwtInterceptor, multi: true },
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: InterceptorsService, multi: true },
   ],
   bootstrap: [AppComponent]
 })

@@ -1,6 +1,6 @@
 {  
     "/api/*": {  
-      "target": "http://localhost/autocargoweb",
+      "target": "http://admin.autocargoweb.com",
        "secure": false,
        "pathRewrite": {"^/api" : ""},
        "changeOrigin": true

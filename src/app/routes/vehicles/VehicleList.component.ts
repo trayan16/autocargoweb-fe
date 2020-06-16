@@ -96,6 +96,8 @@ export class VehicleListComponent implements OnInit, OnDestroy {
       data: {
           carInfo : row,
       },
+      width: '1000px',
+
   }, {});
   }
   loadVehicles = () => {

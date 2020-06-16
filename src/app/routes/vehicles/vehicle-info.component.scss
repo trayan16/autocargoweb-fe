@@ -1,0 +1,59 @@
+#VehicleInfoComponent {
+    img {
+        cursor: pointer;
+    }
+    .small-images img {
+        max-width: 100%;
+    }
+    .thumbnail img {
+        width: 100%;
+    }
+    section.details--card {
+        margin-bottom: 20px;
+    }
+    .card--shadow {
+        border: 1px solid #c7cdd1;
+        padding: 10px;
+        margin: 0;
+        background-color: #FFFFFF;
+        border: 1px solid #E1E6EB;
+        border-radius: 3px;
+        display: inline-block;
+        width: 100%;
+        -webkit-box-shadow: 0 0 40px 0 rgba(205,216,221,0.4);
+        box-shadow: 0 0 40px 0 rgba(205,216,221,0.4);
+        header {
+            background: linear-gradient(90deg,#45cafc,#303f9f) !important;
+            color:#fff;
+            font-weight: 600;
+            display: flex;
+            box-shadow: 0 5px 11px 0 rgba(0, 0, 0, 0.18), 0 4px 15px 0 rgba(0, 0, 0, 0.15);
+            border-radius: 0.25rem;
+            border-bottom: 1px solid #c7cdd1;
+            padding: 10px 8px;
+            margin-top: -10px;
+            margin-left: -10px;
+            margin-right: -10px;
+            margin-bottom: 10px;
+        }
+        span {
+            word-break: break-all;
+        }
+        .flex {
+            display: flex;
+        }
+        .info__item {
+            margin-bottom: 5px;
+            label {
+                width: 140px;
+                flex-shrink: 0;
+                flex-grow: 0;
+                flex-basis: initial;
+            }
+        }
+        
+    }
+    #keys {
+        text-transform: uppercase;
+    }
+}

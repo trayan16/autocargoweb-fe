@@ -1,6 +1,94 @@
 <h1 mat-dialog-title>{{data.carInfo.post_title}}</h1>
-<div mat-dialog-content>
-    
+<div id="VehicleInfoComponent" mat-dialog-content>
+    <div fxLayout="row" fxLayout.xs="column" class='small-images' fxLayoutGap="10px grid" >
+        <div fxFlex="70">
+            <div class='thumbnail'><img (click)="openGallery(0)" [src]="carInfo.images[0]"></div>
+            <div fxLayout="row wrap" fxLayout.xs="column" class='small-images' fxLayoutGap="16px grid">
+                <div fxFlex="1 0 200px" *ngFor="let image of carInfo.images; index as i">
+                    <img (click)="openGallery(i)" [src]="image"/>
+                </div>
+            </div>
+        </div>
+        <div fxFlex="30">
+            <section class="details--card">
+                <div class="card--shadow">
+                  <header fxflex fxlayout>
+                    <div fxlayoutalign="center center">Unit Information</div>
+                  </header>
+                  <div class="flex info__item">
+                    <label>Description:</label>
+                    <span id="content_Description">{{carInfo.description}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Auction:</label>
+                    <span id="content_Auction">{{carInfo.auction}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Auction Location:</label>
+                    <span id="content_AuctionLocation">{{carInfo.auction_location}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Lot Number:</label>
+                    <span id="content_LotNumber">{{carInfo.lot_number}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Place of Delivery:</label>
+                    <span id="content_DestinationPort">{{carInfo.place_of_delivery}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Purchase Date:</label>
+                    <span id="content_PurchaseDate">{{carInfo.purchase_date}}</span>
+                  </div>
+                </div>
+              </section>
+              <section class="details--card">
+                <div class="card--shadow">
+                  <header fxflex fxlayout>
+                    <div fxlayoutalign="center center">Additional Details</div>
+                  </header>
+                  <div class="flex info__item">
+                    <label>Terminal:</label>
+                    <span id="content_Description">{{carInfo.terminal}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Delivery Date:</label>
+                    <span id="content_Auction">{{carInfo.delivery_date}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Keys:</label>
+                    <span id="keys">{{carInfo.keys}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Vin:</label>
+                    <span id="content_LotNumber"><a target="_blank" href="{{'https://en.vindecoder.pl/' + carInfo.vin}}">{{carInfo.vin}}</a></span>
+                  </div>
+                </div>
+              </section>
+              <section class="details--card">
+                <div class="card--shadow">
+                  <header fxflex fxlayout>
+                    <div fxlayoutalign="center center">Container Info</div>
+                  </header>
+                  <div class="flex info__item">
+                    <label>Terminal:</label>
+                    <span id="content_Description">{{carInfo.container_no}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Delivery Date:</label>
+                    <span id="content_Auction">{{carInfo.shipped_date}}</span>
+                  </div>
+                  <div class="flex info__item">
+                    <label>Keys:</label>
+                    <span id="content_AuctionLocation">{{carInfo.shipping_line}}</span>
+                  </div>
+                </div>
+              </section>
+        </div>
+    </div>
+    <ngx-image-gallery 
+[images]="images" 
+[conf]="conf"
+></ngx-image-gallery>
 </div>
 <div mat-dialog-actions>
     <button cdkFocusInitial mat-button (click)="onNoClick()">Close</button>

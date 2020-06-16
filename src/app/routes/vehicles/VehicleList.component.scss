@@ -1,6 +1,7 @@
 :host {
     width:100%;
 }
+
 #VehicleListComponent ::ng-deep {
     mat-table {
         height: calc(100vh - 215px);      

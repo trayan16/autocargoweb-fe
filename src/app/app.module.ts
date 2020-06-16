@@ -27,6 +27,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { MatGridListModule } from '@angular/material/grid-list';
 import { MatMenuModule } from '@angular/material/menu';
 import {MatSlideToggleModule} from '@angular/material/slide-toggle';
+import { NgxImageGalleryModule } from 'ngx-image-gallery';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { GridComponent } from './components/Grid/Grid.component';
@@ -93,6 +94,7 @@ import { InterceptorsService } from './common/http.interceptor';
     MatAutocompleteModule,
     MatSlideToggleModule,
     MatTooltipModule,
+    NgxImageGalleryModule,
   ],
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   exports: [GeneralFormComponent, MatDialogModule, MatButtonModule, DragDropModule, MatTabsModule],

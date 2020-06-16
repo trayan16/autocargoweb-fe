@@ -1,21 +1,19 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { HttpClient} from '@angular/common/http';
+import { Router } from '@angular/router'; // CLI imports router
 import { BehaviorSubject, Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 import { DialogService } from './dialog.service'
 import { User } from '../common/user.model';
-import { DialogConfirmComponent } from '../components/Dialog/DialogConfirm/DialogConfirm.component';
 import { FormInputBase } from '../components/GeneralForm/InputTypes/FormInputBase';
 import { Textbox } from '../components/GeneralForm/InputTypes/TextBox';
-import { DialogFormComponent } from '../components/Dialog/DialogForm/DialogForm.component';
-import { DialogLoginComponent } from '../components/Dialog/DialogLogin/DialogLogin.component';
 
 @Injectable({ providedIn: 'root' })
 export class AuthenticationService {
   private currentUserSubject: BehaviorSubject<User>;
   public currentUser: Observable<User>;
 
-  constructor(private http: HttpClient, public dialogService: DialogService) {
+  constructor(private http: HttpClient, public dialogService: DialogService, private router: Router) {
     this.currentUserSubject = new BehaviorSubject<User>(JSON.parse(localStorage.getItem('currentUser')));
     this.currentUser = this.currentUserSubject.asObservable();
   }
@@ -24,7 +22,7 @@ export class AuthenticationService {
     return this.currentUserSubject.value;
   }
   login(username, password) {
-    return this.http.post<any>(`wp-json/jwt-auth/v1/token`, { username, password })
+    return this.http.post<any>(`/wp-json/jwt-auth/v1/token`, { username, password })
       .pipe(map(user => {
         // store user details and jwt token in local storage to keep user logged in between page refreshes
         localStorage.setItem('currentUser', JSON.stringify(user));
@@ -52,5 +50,9 @@ export class AuthenticationService {
     // remove user from local storage and set current user to null
     localStorage.removeItem('currentUser');
     this.currentUserSubject.next(null);
+  }
+  redirectTo(uri: string) {
+    this.router.navigateByUrl('/', { skipLocationChange: true }).then(() =>
+    this.router.navigate([uri]));
   }
 }
